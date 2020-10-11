@@ -32,6 +32,20 @@ router.get("/projects/:id", validateProjectId, (req, res) => {
     });
 });
 
+// get project actions
+router.get("/projects/:id/actions", validateProjectId, (req, res) => {
+  projects
+    .getProjectActions(req.params.id)
+    .then((actions) => {
+      res.json(actions);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "There was an error retrieving this project's actions.",
+      });
+    });
+});
+
 // create project
 router.post("/projects", validateProjectData, (req, res) => {
   projects
