@@ -33,6 +33,23 @@ router.post("/projects", validateProjectData, (req, res) => {
 });
 
 // update project by ID
+router.put(
+  "/projects/:id",
+  validateProjectId,
+  validateProjectData,
+  (req, res) => {
+    projects
+      .update(req.params.id, req.body)
+      .then((project) => {
+        res.json(project);
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: "Error updating project. Please try again.",
+        });
+      });
+  }
+);
 
 // ***** Custom Middlewares ******
 
